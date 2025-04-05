@@ -2,34 +2,54 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import urlList from '../../URL-shortening-app-frontend/frontend/src/components/urlList/urlList';
+import * as urlService from './services/urlService';
+import { useContext, useState, useEffect } from 'react';
+import urlDetails from '../../URL-shortening-app-frontend/frontend/src/components/urlDetails/urlDetails';
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    const fetchAllUrls = async () => {
+      const urlsData = await urlService.index();
+      seturls(urlsData);
+    };
+    if (user) fetchAllUrls();
+  }, [user])
+    //return code here
+  }
+
+  const [urls, seturls] = useState([]);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <NavBar/>
+      <Routes>
+        <Route path='/' element={user ? <Dashboard /> : <Landing />} />
+        {user ? (
+          <>
+            {/* Protected routes (availale only to signed-in users) */}
+            <Route path='/URLs' element={<urlList urls={urls}/>} />
+            {/* Add this route! */}
+            <Route
+              path='/urls/:urlId'
+              element={<urlDetails />}
+            />
+          </>
+        ) : (
+          <>
+            {/* Non-user routes (available only to guests) */}
+            <Route path='/sign-up' element={<SignUpForm />} />
+            <Route path='/sign-in' element={<SignInForm />} />
+            </>
+        )}
+      </Routes>
     </>
-  )
-}
+  );
 
-export default App
+  
+
+
+export default App;
+
