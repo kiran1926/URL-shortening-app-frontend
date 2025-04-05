@@ -11,7 +11,7 @@ const urlForm = (props) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log('formData', formData);
+    props.handleAddUrl(formData);
    
   };
 

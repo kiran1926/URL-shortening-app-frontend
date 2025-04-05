@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Routes, Route } from 'react-router';
+import { Routes, Route, useNavigate } from 'react-router';
 
 import NavBar from './components/NavBar/NavBar';
 import SignUpForm from './components/SignUpForm/SignUpForm';
@@ -17,6 +17,13 @@ import { UserContext, useEffect, useEffect } from 'react';
 const App = () => {
   const { user } = useContext(UserContext);
   const [urls, setUrls] = useState([]);
+  const naivate = useNavigate();
+
+  const handleAddUrl = async (urlFormData) => {
+    const newUrl = await urlService.create(urlFormData);
+    setUrls([newUrl, ...urls]);
+    useNavigate('/urls');
+  }
 
   useEffect(() => {
     const fetchAllUrls = async () => {
@@ -38,7 +45,10 @@ const App = () => {
           <>
             {/* Protected routes (availale only to signed-in users) */}
             <Route path='/urls' element={<urlList urls={urls}/>} />
-            <Route path='/urls/new' element={<urlForm />} />
+            <Route 
+              path='/urls/new'
+              element={<urlForm handleAddUrl={handleAddUrl} />}
+            />
             {/* Add this route! */}
             <Route
               path='/urls/:urlId'
