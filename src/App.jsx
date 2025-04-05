@@ -8,6 +8,7 @@ import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import urlDetails from './components/urlDetails/urlDetails';
 import urlList from './components/urlList/urlList';
+import urlForm from './components/urlForm/urlForm';
 
 import * as urlService from './services/urlService';
 
@@ -37,6 +38,7 @@ const App = () => {
           <>
             {/* Protected routes (availale only to signed-in users) */}
             <Route path='/urls' element={<urlList urls={urls}/>} />
+            <Route path='/urls/new' element={<urlForm />} />
             {/* Add this route! */}
             <Route
               path='/urls/:urlId'
