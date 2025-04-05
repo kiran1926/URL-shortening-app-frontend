@@ -1,6 +1,6 @@
 import { useParams } from 'react-router';
 
-const urlDetails = ()=> {
+const urlDetails = () => {
     const { urlId } = useParams();
     console.log('urlId', urlId);
 

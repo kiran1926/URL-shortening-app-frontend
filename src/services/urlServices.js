@@ -10,7 +10,20 @@ const index = async () => {
       console.log(error);
     }
   };
+
+  const show = async (urlId) => {
+    try {
+      const res = await fetch(`${BASE_URL}/${urlId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      return res.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
   
   export { 
     index,
+    show
   };

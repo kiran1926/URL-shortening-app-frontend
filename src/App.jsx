@@ -36,7 +36,7 @@ const App = () => {
         {user ? (
           <>
             {/* Protected routes (availale only to signed-in users) */}
-            <Route path='/URLs' element={<urlList urls={urls}/>} />
+            <Route path='/urls' element={<urlList urls={urls}/>} />
             {/* Add this route! */}
             <Route
               path='/urls/:urlId'
