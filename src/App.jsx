@@ -25,6 +25,12 @@ const App = () => {
     useNavigate('/urls');
   }
 
+  const handleUpdateUrl = async (urlId, urlFormData) => {
+    const updateUrl = await urlService.update(urlId, urlFormData);
+    setUrls(urls.map((url) => (urlId === url._id ? updatedUrl : url)));
+    useNavigate(`/urls/${urlId}`);
+  };
+
   useEffect(() => {
     const fetchAllUrls = async () => {
       const urlsData = await urlService.index();
@@ -36,8 +42,8 @@ const App = () => {
   }
 
 const handleDeleteUrl = async (urlId) => {
-  console.log('urlId', urlId);
-  setUrls(urls.filter((url) => urlDetails._id !== urlId));
+  const deleteUrl = await urlService.deleteUrl(urlId);
+  setUrls(urls.filter((url) => url._id !== deleteUrl._id));
   useNavigate('/urls');
 };
 
@@ -49,15 +55,25 @@ const handleDeleteUrl = async (urlId) => {
         {user ? (
           <>
             {/* Protected routes (availale only to signed-in users) */}
-            <Route path='/urls' element={<urlList urls={urls}/>} />
+            <Route 
+              path='/urls' 
+              element={<urlList urls={urls}/>} 
+            />
             <Route 
               path='/urls/new'
               element={<urlForm handleAddUrl={handleAddUrl} />}
             />
-            {/* Add this route! */}
             <Route
               path='/urls/:urlId'
               element={<urlDetails handleDeleteUrl={handleDeleteUrl}/>}
+            />
+            <Route
+              path='/urls/:urlId/edit'
+              element={<urlForm />}
+              />
+            <Route
+              path='/urls/:urlId/edit'
+              element={<urlForm handleUpdateUrl={handleAddUrl} />}
             />
           </>
         ) : (

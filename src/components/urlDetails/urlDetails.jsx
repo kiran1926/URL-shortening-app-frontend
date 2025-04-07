@@ -1,4 +1,4 @@
-import { useParams } from 'react-router';
+import { useParams, Link } from 'react-router';
 import * as urlService from '../../services/urlService';
 import { useEffect, useState, useContext } from 'react';
 import { hydrateRoot } from 'react-dom/client';
@@ -30,10 +30,11 @@ const urlDetails = (props) => {
                     <h1>{url.title}</h1>
                     <p>
                         {`${url.author.username} posted on
-                        ${new Date(hydrateRoot.createdAt).toLocaleDateString()}`}
+                        ${new Date(url.createdAt).toLocaleDateString()}`}
                     </p>
-                    {url.author.id === user._id && (
+                    {url.author._id === user._id && (
                         <>
+                        <Link to={`/urls/${urlId}/edit`}>Edit</Link>
                         <button onClick={() => props.handleDeleteUrl(urlId)}>
                             Delete
                         </button>
@@ -43,17 +44,17 @@ const urlDetails = (props) => {
                 <p>{url.text}</p>
             </section>
             <section>
-                <h2>Comments</h2>
-                {!url.comments.length && <p>There are no comments.</p>}
-                {url.comments.map((comment) => (
-                    <article key={comment._id}>
+                <h2>Notes</h2>
+                {!url.notes.length && <p>There are no notes.</p>}
+                {url.notes.map((notes)=> (
+                    <article key={notes._id}>
                         <header>
                             <p>
-                                {`${comment.author.username} posted on
-                                ${new Date(comment.createdAt).toLocaleDateString()}`}
+                                {`${note.author.username} posted on
+                                ${new Date(note.createdAt).toLocaleDateString()}`}
                             </p>
                         </header>
-                    <p>{comment.text}</p>
+                    <p>{note.text}</p>
                     </article>
                 ))}
             </section>

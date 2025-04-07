@@ -32,14 +32,47 @@ const index = async () => {
         },
         body: JSON.stringify(urlFormData),
       });
+
       return res.json();
     } catch (error) {
       console.log(error);
     }
   };
-  
+
+  const deleteUrl = async (urlId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${urlId}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        return res.json();
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+async function update(urlId, urlFormData) {
+    try {
+        const res = await fetch (`${BASE_URL}/${urlId}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                'Conten-Type': 'application/json',
+            },
+            body: JSON.stringify(urlFormData),
+        });
+        return res.json();
+    } catch (error) {
+        console.log(error);
+    }
+}
   export { 
     index,
     show,
-    create
+    create,
+    createNote,
+    deleteUrl,
+    update,
   };
