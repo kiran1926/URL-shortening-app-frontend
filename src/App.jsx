@@ -35,6 +35,11 @@ const App = () => {
     //return code here
   }
 
+const handleDeleteUrl = async (urlId) => {
+  console.log('urlId', urlId);
+  setUrls(urls.filter((url) => urlDetails._id !== urlId));
+  useNavigate('/urls');
+};
 
   return (
     <>
@@ -52,7 +57,7 @@ const App = () => {
             {/* Add this route! */}
             <Route
               path='/urls/:urlId'
-              element={<urlDetails />}
+              element={<urlDetails handleDeleteUrl={handleDeleteUrl}/>}
             />
           </>
         ) : (

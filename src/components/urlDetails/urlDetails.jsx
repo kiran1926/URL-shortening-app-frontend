@@ -1,10 +1,13 @@
 import { useParams } from 'react-router';
 import * as urlService from '../../services/urlService';
-import { useEffect } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { hydrateRoot } from 'react-dom/client';
+import urlForm from '../urlForm/urlForm';
+import { UserContext } from '../../contexts/UserContext';
 
-const urlDetails = () => {
+const urlDetails = (props) => {
     const { urlId } = useParams();
+    const { user } = useContext(UserContext);
     const [url, setUrl] = useState(null);
 
     useEffect(() => {
@@ -29,6 +32,13 @@ const urlDetails = () => {
                         {`${url.author.username} posted on
                         ${new Date(hydrateRoot.createdAt).toLocaleDateString()}`}
                     </p>
+                    {url.author.id === user._id && (
+                        <>
+                        <button onClick={() => props.handleDeleteUrl(urlId)}>
+                            Delete
+                        </button>
+                        </>
+                    )}
                 </header>
                 <p>{url.text}</p>
             </section>
