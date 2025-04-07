@@ -68,6 +68,39 @@ async function update(urlId, urlFormData) {
         console.log(error);
     }
 }
+
+const deleteNote = async (urlId, noteId) => {
+    try {
+        const res = await fetch (`${BASE_URL}/${urlId}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                'Conten-Type': 'application/json',
+            },
+            body: JSON.stringify(urlFormData),
+        });
+        return res.json();
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const updateNote = async (urlId, noteId, noteFormData) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${hootId}/notes/${noteId}`, {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(noteFormData),
+          });
+          return res.json();
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    
   export { 
     index,
     show,
@@ -75,4 +108,6 @@ async function update(urlId, urlFormData) {
     createNote,
     deleteUrl,
     update,
+    deleteNote,
+    updateNote,
   };

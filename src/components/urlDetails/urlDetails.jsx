@@ -53,7 +53,15 @@ const urlDetails = (props) => {
                                 {`${note.author.username} posted on
                                 ${new Date(note.createdAt).toLocaleDateString()}`}
                             </p>
-                        </header>
+                            {url.author._id === user._id && (
+                        <>
+                        <Link to={`/urls/${urlId}/notes/${note._id}/edit`}>Edit</Link>
+                        <button onClick={() => props.handleDeleteNote(noteId)}>
+                            Delete
+                        </button>
+                        </>
+                    )}
+                    </header>
                     <p>{note.text}</p>
                     </article>
                 ))}
@@ -61,5 +69,13 @@ const urlDetails = (props) => {
         </main>
     )
 }
+
+const handleDeleteNote = async (noteId) => {
+    console.log('noteId:', noteId);
+    setUrl({
+        ...url,
+        notes: url.notes.filter((note) => note._id !== noteId),
+    });
+};
 
 export default urlDetails;

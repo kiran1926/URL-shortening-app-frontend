@@ -9,6 +9,8 @@ import Dashboard from './components/Dashboard/Dashboard';
 import urlDetails from './components/urlDetails/urlDetails';
 import urlList from './components/urlList/urlList';
 import urlForm from './components/urlForm/urlForm';
+import NoteForm from './components/NoteForm/NoteForm'
+
 
 import * as urlService from './services/urlService';
 
@@ -74,6 +76,10 @@ const handleDeleteUrl = async (urlId) => {
             <Route
               path='/urls/:urlId/edit'
               element={<urlForm handleUpdateUrl={handleAddUrl} />}
+            />
+            <Route
+              path='/urls/:urlId/notes/:noteId/edit'
+              element={<NoteForm />}
             />
           </>
         ) : (
