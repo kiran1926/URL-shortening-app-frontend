@@ -10,12 +10,12 @@ const SignUpForm = () => {
   const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: '',
     passwordConf: '',
   });
 
-  const { username, password, passwordConf } = formData;
+  const { email, password, passwordConf } = formData;
 
   const handleChange = (evt) => {
     setMessage('');
@@ -34,7 +34,7 @@ const SignUpForm = () => {
   };
 
   const isFormInvalid = () => {
-    return !(username && password && password === passwordConf);
+    return !(email && password && password === passwordConf);
   };
 
   return (
@@ -43,12 +43,12 @@ const SignUpForm = () => {
       <p>{message}</p>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor='username'>Username:</label>
+          <label htmlFor='email'>Email:</label>
           <input
-            type='text'
-            id='name'
-            value={username}
-            name='username'
+            type='email'
+            id='email'
+            value={email}
+            name='email'
             onChange={handleChange}
             required
           />
