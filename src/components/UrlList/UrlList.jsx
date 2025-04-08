@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 
-const urlList = (props) => {
+const UrlList = (props) => {
     return (
         <main>
             {props.urls.map((url) => (
@@ -21,4 +21,4 @@ const urlList = (props) => {
     );
 };
 
-export default urlList;
+export default UrlList;

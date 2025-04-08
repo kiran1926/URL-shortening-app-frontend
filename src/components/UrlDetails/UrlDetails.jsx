@@ -2,10 +2,10 @@ import { useParams, Link } from 'react-router';
 import * as urlService from '../../services/urlService';
 import { useEffect, useState, useContext } from 'react';
 import { hydrateRoot } from 'react-dom/client';
-import urlForm from '../urlForm/urlForm';
+import UrlForm from './UrlForm/UrlForm';
 import { UserContext } from '../../contexts/UserContext';
 
-const urlDetails = (props) => {
+const UrlDetails = (props) => {
     const { urlId } = useParams();
     const { user } = useContext(UserContext);
     const [url, setUrl] = useState(null);
@@ -78,4 +78,4 @@ const handleDeleteNote = async (noteId) => {
     });
 };
 
-export default urlDetails;
+export default UrlDetails;

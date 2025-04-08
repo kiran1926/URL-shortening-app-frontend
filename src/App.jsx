@@ -1,14 +1,17 @@
 import { useContext, useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router';
 import { UserContext } from './contexts/UserContext.jsx';
+
+
+
 import NavBar from './components/NavBar/NavBar';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
-import urlDetails from './components/urlDetails/urlDetails';
-import urlList from './components/urlList/urlList';
-import urlForm from './components/urlForm/urlForm';
+import urlDetails from './components/UrlDetails/UrlDetails.jsx';
+import urlList from './components/UrlList/UrlList.jsx';
+import urlForm from './components/UrlForm/UrlForm.jsx';
 import NoteForm from './components/NoteForm/NoteForm';
 
 
@@ -21,7 +24,7 @@ const App = () => {
 
   const { user } = useContext(UserContext);
   const [urls, setUrls] = useState([]);
-  const naivate = useNavigate();
+  const navigate = useNavigate();
 
   const handleAddUrl = async (urlFormData) => {
     const newUrl = await urlService.create(urlFormData);
@@ -50,7 +53,6 @@ const handleDeleteUrl = async (urlId) => {
   setUrls(urls.filter((url) => url._id !== deleteUrl._id));
   useNavigate('/urls');
 }
-
 
   return (
     <>
@@ -96,7 +98,5 @@ const handleDeleteUrl = async (urlId) => {
     </>
   );
 };
-
-
 
 export default App;

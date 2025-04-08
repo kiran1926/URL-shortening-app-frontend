@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import * as urlService from '../../services/urlService';
 
-const urlForm = (props) => {
+const UrlForm = (props) => {
     const { urlId } = useParams();
     console.log(urlId);
     const [formData, setFormData] = useState({
@@ -51,4 +51,4 @@ const urlForm = (props) => {
   );
 };
 
-export default urlForm;
+export default UrlForm;
