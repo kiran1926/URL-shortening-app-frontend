@@ -8,7 +8,7 @@ import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import UrlList from './components/UrlList/UrlList';
 import UrlDetails from './components/UrlDetails/UrlDetails';
-import UrlForm from './components/UrlForm/urlForm';
+import UrlForm from './components/UrlForm/UrlForm';
 
 import * as urlService from './services/urlService';
 import { UserContext } from './contexts/UserContext';
