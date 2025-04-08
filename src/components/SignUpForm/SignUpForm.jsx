@@ -37,6 +37,7 @@ const SignUpForm = () => {
     return !(username && password && password === passwordConf);
   };
 
+  console.log('Hello');
   return (
     <main>
       <h1>Sign Up</h1>

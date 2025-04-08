@@ -1,6 +1,6 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router';
-
+import { UserContext } from './contexts/UserContext.jsx';
 import NavBar from './components/NavBar/NavBar';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
@@ -9,14 +9,16 @@ import Dashboard from './components/Dashboard/Dashboard';
 import urlDetails from './components/urlDetails/urlDetails';
 import urlList from './components/urlList/urlList';
 import urlForm from './components/urlForm/urlForm';
-import NoteForm from './components/NoteForm/NoteForm'
+import NoteForm from './components/NoteForm/NoteForm';
+
 
 
 import * as urlService from './services/urlService';
 
-import { UserContext, useEffect, useEffect } from 'react';
 
 const App = () => {
+  console.log(UserContext);
+
   const { user } = useContext(UserContext);
   const [urls, setUrls] = useState([]);
   const naivate = useNavigate();
@@ -39,15 +41,16 @@ const App = () => {
       seturls(urlsData);
     };
     if (user) fetchAllUrls();
-  }, [user])
+   [user]})
     //return code here
-  }
+  
 
 const handleDeleteUrl = async (urlId) => {
   const deleteUrl = await urlService.deleteUrl(urlId);
   setUrls(urls.filter((url) => url._id !== deleteUrl._id));
   useNavigate('/urls');
-};
+}
+
 
   return (
     <>
@@ -92,6 +95,8 @@ const handleDeleteUrl = async (urlId) => {
       </Routes>
     </>
   );
+};
+
 
 
 export default App;

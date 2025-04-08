@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import * as urlService from '../../services/urlService';
 
-const { urlId, noteId } = useParams();
-console.log(hootId, noteId);
+const NoteForm = () => {
+    
+    const { urlId, noteId } = useParams();
+console.log(urlId, noteId);
 
 useEffect(() => {
     const fetchUrl = async () => {
@@ -24,3 +26,6 @@ const handleSubmit = (evt) => {
     }
     setFormData({ text: ''});
 };
+}
+
+export default NoteForm;

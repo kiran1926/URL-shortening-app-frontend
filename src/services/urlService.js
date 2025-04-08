@@ -105,7 +105,6 @@ const updateNote = async (urlId, noteId, noteFormData) => {
     index,
     show,
     create,
-    createNote,
     deleteUrl,
     update,
     deleteNote,
