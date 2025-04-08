@@ -12,11 +12,8 @@ Check out the Application [Here](https://)
 | **GitHub Repo**     | [View Backend Repository](https://github.com/kiran1926/URL-shortening-app-backend) |
 | **GitHub Repo**     | [View Frontend Repository](https://github.com/kiran1926/URL-shortening-app-backend) 
 
-![Landing Page](images/LandingPage.png)
+![ERD Schema](src/assets/images/schema.png)
 
-![URL Page](images/)
-
-![BRD Schema](images/schemapng)
 
 ### Key Features
 
