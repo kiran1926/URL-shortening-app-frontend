@@ -1,0 +1,58 @@
+.landing {
+  border: 2px solid black;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  background: linear-gradient(to bottom right, #eef2ff, #ffffff);
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.card h1 {
+  font-size: 2rem;
+  color: #0d7951;
+  margin-bottom: 1rem;
+}
+
+.card p {
+  font-size: 1.125rem;
+  color: #0d7951;
+  margin-bottom: 2rem;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sign-up-btn {
+  background-color: #0d7951;
+  color: white;
+}
+
+.sign-up-btn:hover {
+  background-color: #0d7951;
+}
+
+/* .sign-in-btn {
+  background
+} */

@@ -1,0 +1,49 @@
+.dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 100vh; 
+    padding: 0 2rem;
+    background: linear-gradient(to bottom right, #eef2ff, #ffffff);
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    padding-left: inherit;
+  }
+  
+  .card h1 {
+    font-size: 2rem;
+    color: #0d7951;
+    margin-bottom: 1rem;
+  }
+  
+  .card p {
+    font-size: 1.125rem;
+    color: #0d7951;
+    margin-bottom: 1rem;
+  }
+  
+  .card h2 {
+    font-size: 1.5rem;
+    color: #0d7951;
+    margin-top: 1.5rem;
+  }
+  
+  .card ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .card ul li {
+    font-size: 1.125rem;
+    color: #319795;
+    margin-bottom: 0.5rem;
+  }
+  
