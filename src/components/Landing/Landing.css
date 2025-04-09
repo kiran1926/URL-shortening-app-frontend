@@ -1,10 +1,7 @@
 .landing {
-  border: 2px solid black;
-  min-height: 100vh;
   display: flex;
   align-items: center;
   padding: 2rem;
-  background: linear-gradient(to bottom right, #eef2ff, #ffffff);
 }
 
 .card {
@@ -52,7 +49,3 @@
 .sign-up-btn:hover {
   background-color: #0d7951;
 }
-
-/* .sign-in-btn {
-  background
-} */
