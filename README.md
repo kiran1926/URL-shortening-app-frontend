@@ -12,13 +12,24 @@ Check out the Application [Here](https://)
 | **GitHub Repo**     | [View Backend Repository](https://github.com/kiran1926/URL-shortening-app-backend) |
 | **GitHub Repo**     | [View Frontend Repository](https://github.com/kiran1926/URL-shortening-app-backend) 
 
-![ERD Schema](src/assets/images/schema.png)
+# RESTful Routes for URL Application
+
+| HTTP Method | Controller       | Response | URI                          | Use Case              |
+|-------------|------------------|----------|-------------------------------|------------------------|
+| POST        | create           | 200      | /urls                        | Create a url          |
+| GET         | index            | 200      | /urls                        | List urls             |
+| GET         | show             | 200      | /urls/:urlId               | Get a single url      |
+| PUT         | update           | 200      | /urls/:urlId               | Update a url          |
+| DELETE      | deleteUrl       | 200      | /urls/:urlId               | Delete a url          |
+| POST        | createComment    | 200      | /urls/:urlId/comments      | Create a note       |
+
 
 
 ### Key Features
 
+- User can create a shortening URL from a long URL
 - User can view their URLs.
-- User can see their analytics displayed on the screen.
+<!-- - User can see their analytics displayed on the screen. -->
 
 ## Tech Stack
 ### Front end build using: 
@@ -38,7 +49,7 @@ Check out the Application [Here](https://)
 
 ## Documentation 
 
-This application is deployed on [Github Pages](https://).
+This application is deployed on [Heruko](https://). [Netify](https://).
 
  ---
 ## Frameworks - Libraries
@@ -66,15 +77,3 @@ Build post endpoint to site to allow for people to upload their own url.
 
 
 Check out the Application [Here](https://) 
-
-
-# RESTful Routes for URL Application
-
-| HTTP Method | Controller       | Response | URI                          | Use Case              |
-|-------------|------------------|----------|-------------------------------|------------------------|
-| POST        | create           | 200      | /urls                        | Create a url          |
-| GET         | index            | 200      | /urls                        | List urls             |
-| GET         | show             | 200      | /urls/:urlId               | Get a single url      |
-| PUT         | update           | 200      | /urls/:urlId               | Update a url          |
-| DELETE      | deleteUrl       | 200      | /urls/:urlId               | Delete a url          |
-| POST        | createComment    | 200      | /urls/:urlId/comments      | Create a note       |
