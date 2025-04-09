@@ -34,7 +34,7 @@ const UrlForm = (props) => {
 
   return (
     <main>
-        <h1>{urlId ? 'Edit URL' : 'New URL'}</h1>
+        <h1>{urlId ? 'Edit URL' : 'Short links, big results'}</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor='url-input'>Original URL</label>
         <input

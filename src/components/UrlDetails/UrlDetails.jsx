@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router';
 import * as urlService from '../../services/urlService';
 import { useEffect, useState, useContext } from 'react';
 import { hydrateRoot } from 'react-dom/client';
-import UrlForm from './UrlForm/UrlForm';
+import UrlForm from '../UrlForm/UrlForm';
 import { UserContext } from '../../contexts/UserContext';
 
 const UrlDetails = (props) => {

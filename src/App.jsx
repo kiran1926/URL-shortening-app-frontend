@@ -3,15 +3,14 @@ import { Routes, Route, useNavigate } from 'react-router';
 import { UserContext } from './contexts/UserContext.jsx';
 
 
-
 import NavBar from './components/NavBar/NavBar';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
-import urlDetails from './components/UrlDetails/UrlDetails.jsx';
-import urlList from './components/UrlList/UrlList.jsx';
-import urlForm from './components/UrlForm/UrlForm.jsx';
+import UrlDetails from './components/UrlDetails/UrlDetails.jsx';
+import UrlList from './components/UrlList/UrlList.jsx';
+import UrlForm from './components/UrlForm/UrlForm.jsx';
 import NoteForm from './components/NoteForm/NoteForm';
 
 
@@ -34,14 +33,14 @@ const App = () => {
 
   const handleUpdateUrl = async (urlId, urlFormData) => {
     const updateUrl = await urlService.update(urlId, urlFormData);
-    setUrls(urls.map((url) => (urlId === url._id ? updatedUrl : url)));
+    setUrls(urls.map((url) => (urlId === url._id ? updateUrl : url)));
     useNavigate(`/urls/${urlId}`);
   };
 
   useEffect(() => {
     const fetchAllUrls = async () => {
       const urlsData = await urlService.index();
-      seturls(urlsData);
+      setUrls(urlsData);
     };
     if (user) fetchAllUrls();
    [user]})
@@ -64,23 +63,23 @@ const handleDeleteUrl = async (urlId) => {
             {/* Protected routes (availale only to signed-in users) */}
             <Route 
               path='/urls' 
-              element={<urlList urls={urls}/>} 
+              element={<UrlList urls={urls}/>} 
             />
             <Route 
               path='/urls/new'
-              element={<urlForm handleAddUrl={handleAddUrl} />}
+              element={<UrlForm handleaddurl={handleAddUrl} />}
             />
             <Route
               path='/urls/:urlId'
-              element={<urlDetails handleDeleteUrl={handleDeleteUrl}/>}
+              element={<UrlDetails handleDeleteUrl={handleDeleteUrl}/>}
             />
             <Route
               path='/urls/:urlId/edit'
-              element={<urlForm />}
+              element={<UrlForm />}
               />
             <Route
               path='/urls/:urlId/edit'
-              element={<urlForm handleUpdateUrl={handleAddUrl} />}
+              element={<UrlForm handleUpdateUrl={handleAddUrl} />}
             />
             <Route
               path='/urls/:urlId/notes/:noteId/edit'
