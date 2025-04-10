@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
-
-import { signIn } from '../../services/authService';
+import './SignInForm.css'; 
 
 import { UserContext } from '../../contexts/UserContext';
 
@@ -32,7 +31,7 @@ const SignInForm = () => {
 
   return (
     <main>
-      <h1>Sign In</h1>
+      <h1 className='signinform'>Sign In</h1>
       <p>{message}</p>
       <form autoComplete='off' onSubmit={handleSubmit}>
         <div>
