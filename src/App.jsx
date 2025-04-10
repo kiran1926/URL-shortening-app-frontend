@@ -7,6 +7,7 @@ import SignInForm from "./components/SignInForm/SignInForm";
 import Landing from "./components/Landing/Landing";
 import Dashboard from "./components/Dashboard/Dashboard";
 import UrlDetails from "./components/UrlDetails/UrlDetails";
+import Footer from "./components/Footer/Footer";  
 
 import { UserContext } from "./contexts/UserContext";
 
@@ -26,6 +27,7 @@ const App = () => {
           element={user ? <UrlDetails /> : <Landing />}
         />
       </Routes>
+      <Footer />
     </>
   );
 };
