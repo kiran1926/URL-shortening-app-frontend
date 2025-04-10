@@ -1,4 +1,5 @@
-body {
-  display: flex;
-  justify-content: center;
-}
+  body {
+      height: 100vh;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+  }
