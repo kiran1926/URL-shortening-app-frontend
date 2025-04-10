@@ -45,6 +45,26 @@ const getUserUrls = async() => {
     }
 };
 
+// Get a single URL by shortUrl
+const getUrlByShortUrl = async(shortUrl) => {
+    try {
+        const res = await fetch(`${BASE_URL}/url/${shortUrl}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
+
+        const data = await res.json();
+
+        if (data.error) {
+            throw new Error(data.error);
+        }
+
+        return data;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
+
 // Delete a URL
 const deleteUrl = async(shortUrl) => {
     try {
@@ -112,4 +132,11 @@ const deleteNote = async(shortUrl) => {
     }
 };
 
-export { createUrl, getUserUrls, deleteUrl, updateNote, deleteNote };
+export {
+    createUrl,
+    getUserUrls,
+    getUrlByShortUrl,
+    deleteUrl,
+    updateNote,
+    deleteNote,
+};

@@ -1,9 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 import * as urlService from "../../services/urlService";
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const [urls, setUrls] = useState([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -14,14 +16,12 @@ const Dashboard = () => {
     note: "",
   });
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     if (error) setError("");
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
@@ -32,22 +32,20 @@ const Dashboard = () => {
         originalUrl: formData.originalUrl,
       };
 
-      // Only add shortUrl if provided
       if (formData.shortUrl) {
         urlData.shortUrl = formData.shortUrl;
       }
 
-      // Add note if provided
       if (formData.note) {
         urlData.note = formData.note;
       }
 
       const newUrl = await urlService.createUrl(urlData);
 
-      // Add the new URL to the list
+
       setUrls([newUrl, ...urls]);
 
-      // Clear the form
+ 
       setFormData({
         originalUrl: "",
         shortUrl: "",
@@ -60,8 +58,8 @@ const Dashboard = () => {
     }
   };
 
-  // Delete a URL
-  const handleDelete = async (shortUrl) => {
+  const handleDelete = async (e, shortUrl) => {
+    e.stopPropagation();
     try {
       await urlService.deleteUrl(shortUrl);
       setUrls(urls.filter((url) => url.shortUrl !== shortUrl));
@@ -70,20 +68,13 @@ const Dashboard = () => {
     }
   };
 
-  // Add or update note for a URL
-  const handleAddNote = async (shortUrl, note) => {
-    try {
-      const updatedUrl = await urlService.updateNote(shortUrl, note);
-      setUrls(
-        urls.map((url) => (url.shortUrl === shortUrl ? updatedUrl : url))
-      );
-    } catch (err) {
-      setError(err.message || "Failed to update note");
-    }
+  // Navigate to URL details
+  const navigateToUrl = (shortUrl) => {
+    navigate(`/url/${shortUrl}`);
   };
 
-  // Copy shortened URL to clipboard
-  const copyToClipboard = (text) => {
+  const copyToClipboard = (e, text) => {
+    e.stopPropagation();
     navigator.clipboard
       .writeText(text)
       .then(() => {
@@ -94,7 +85,6 @@ const Dashboard = () => {
       });
   };
 
-  // Load user's URLs
   useEffect(() => {
     const fetchUrls = async () => {
       setLoading(true);
@@ -295,7 +285,11 @@ const Dashboard = () => {
                     };
 
                     return (
-                      <tr key={url.shortUrl}>
+                      <tr
+                        key={url.shortUrl}
+                        onClick={() => navigateToUrl(url.shortUrl)}
+                        className="hover:bg-gray-50 cursor-pointer"
+                      >
                         <td className="py-4 pl-4 pr-3 text-sm">
                           <div
                             className="font-medium text-gray-900 truncate max-w-xs"
@@ -314,8 +308,11 @@ const Dashboard = () => {
                           <div className="text-indigo-600 font-medium">
                             {url.shortUrl}
                             <button
-                              onClick={() =>
-                                copyToClipboard(`yoursite.com/${url.shortUrl}`)
+                              onClick={(e) =>
+                                copyToClipboard(
+                                  e,
+                                  `yoursite.com/${url.shortUrl}`
+                                )
                               }
                               className="ml-2 text-gray-400 hover:text-gray-600"
                               title="Copy to clipboard"
@@ -332,7 +329,7 @@ const Dashboard = () => {
                         </td>
                         <td className="py-4 pl-3 pr-4 text-right text-sm font-medium">
                           <button
-                            onClick={() => handleDelete(url.shortUrl)}
+                            onClick={(e) => handleDelete(e, url.shortUrl)}
                             className="text-red-600 hover:text-red-800"
                             title="Delete URL"
                           >
