@@ -2,9 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center; 
-    height: 100vh; 
     padding: 0 2rem;
-    background: linear-gradient(to bottom right, #eef2ff, #ffffff);
   }
   
   .card {
