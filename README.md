@@ -1,79 +1,80 @@
-# URL-shortening-app-frontend
+# URL Shortening App – Frontend
 
-Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
+A full-stack web application that allows users to shorten long URLs and manage them in a personalized dashboard. Users can create, view, update, and delete shortened URLs, as well as leave comments on individual links.
 
-Check out the Application [Here](https://) 
+🔗 **Check out the Application [Here](https://)**
 
+---
+
+## Tech Stack
+
+- **Frontend**: React
+- **Backend**: MongoDB, Express
+- **Deployment**:
+  - Frontend: [Heroku Pages](https://www.heroku.com/)
+  - Backend: [Netlify](https://www.netlify.com/)
+
+---
+
+## Key Features
+
+- Shorten long URLs into cleaner, shareable links
+- View a list of your shortened URLs
+- Edit or delete existing shortened URLs
+- Add notes to each URL
+
+---
+
+## RESTful Routes
+
+| HTTP Method | Controller       | Response | URI                          | Use Case              |
+|-------------|------------------|----------|------------------------------|-----------------------|
+| **POST**    | create           | 200      | /urls                        | Create a URL          |
+| **GET**     | index            | 200      | /urls                        | List all URLs         |
+| **GET**     | show             | 200      | /urls/:urlId                | Get a single URL      |
+| **PUT**     | update           | 200      | /urls/:urlId                | Update a URL          |
+| **DELETE**  | deleteUrl        | 200      | /urls/:urlId                | Delete a URL          |
+| **POST**    | createComment    | 200      | /urls/:urlId/comments       | Create a comment      |
+
+---
+
+## Project Links
 
 | Resource            | Link |
 |---------------------|------|
 | **Trello Board**     | [View Trello Board](https://trello.com/b/m0Z0nQ76/project-3-crud) |
-| **GitHub Pages**    | [View Deployed App](https://) |
-| **GitHub Repo**     | [View Backend Repository](https://github.com/kiran1926/URL-shortening-app-backend) |
-| **GitHub Repo**     | [View Frontend Repository](https://github.com/kiran1926/URL-shortening-app-backend) 
+| **Deployed App**     | [View Deployed App](https://) |
+| **Frontend Repo**    | [GitHub Frontend Repository](https://github.com/kiran1926/URL-shortening-app-frontend) |
+| **Backend Repo**     | [GitHub Backend Repository](https://github.com/kiran1926/URL-shortening-app-backend) |
 
-# RESTful Routes for URL Application
+---
 
-| HTTP Method | Controller       | Response | URI                          | Use Case              |
-|-------------|------------------|----------|-------------------------------|------------------------|
-| POST        | create           | 200      | /urls                        | Create a url          |
-| GET         | index            | 200      | /urls                        | List urls             |
-| GET         | show             | 200      | /urls/:urlId               | Get a single url      |
-| PUT         | update           | 200      | /urls/:urlId               | Update a url          |
-| DELETE      | deleteUrl       | 200      | /urls/:urlId               | Delete a url          |
-| POST        | createComment    | 200      | /urls/:urlId/comments      | Create a note       |
+## Clone This Repo
 
+To clone and navigate into the backend:
 
+```bash
+git clone https://github.com/kiran1926/URL-shortening-app-backend && cd URL-shortening-app-backend
+```
 
-### Key Features
+```bash
+git clone https://github.com/kiran1926/URL-shortening-app-frontend && cd URL-shortening-app-frontend
+```
 
-- User can create a shortening URL from a long URL
-- User can view their URLs.
-<!-- - User can see their analytics displayed on the screen. -->
+## Next Steps
 
-## Tech Stack
-### Front end build using: 
- React
- ### Back end build using: 
- Mongo DB, Express
+- Add link analytics and tracking features
 
+## Frameworks & Libraries
 
- Front end deployed using [Heroku Pages](https://www.heroku.com/)
- Back end deployed using [Metify Pages](https://www.netlify.com/)
+- **React** – Frontend framework
+- **MongoDB** – Database
+- **Express** – Backend framework
+- **Tailwind CSS** – For styling
 
+## Contributors
 
-### Clone this repository and navigate into
-
-`git clone https://github.com/kiran1926/URL-shortening-app-backend && cd URL-shortening-app-backend`
-
-
-## Documentation 
-
-This application is deployed on [Heruko](https://). [Netify](https://).
-
- ---
-## Frameworks - Libraries
-
-- What 3rd party frameworks/libraries are you considering using?
-
-
-## Atributes
-
-- image: .com
-
-## Next Up
-
-Build post endpoint to site to allow for people to upload their own url.
-
- ## Contributors
-   
- ### Rosa Perez [GitHub](https://github.com/paintedlbird7)
-
- | Resource            | Link |
-|---------------------|------|
-| **Trello Board**     | [View Trello Board](https://trello.com/b/m0Z0nQ76/project-3-crud) |
-| **GitHub Repo**     | [View Backend Repository](https://github.com/kiran1926/URL-shortening-app-backend) |
-| **GitHub Repo**     | [View Frontend Repository](https://github.com/kiran1926/URL-shortening-app-frontend) |
-
-
-Check out the Application [Here](https://) 
+- **Rosa Perez** – [GitHub](https://github.com/paintedlbird7)
+- **Kiran Roge** – [GitHub](https://github.com/kiran1926)
+- **Ashley Corbett** – [GitHub](https://github.com/AMC292-design)
+- **Rae McElroy** – [GitHub](https://github.com/rmcelroy1990)
