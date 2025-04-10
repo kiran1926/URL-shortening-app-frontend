@@ -1,0 +1,29 @@
+body {
+    background-color:  white;
+  }
+
+.signinform {
+    background-color:  #0d7951;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    border: 2px solid  #0d7951;
+}
+
+.email {
+    background-color: #0d7951 ;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    border: 2px solid  #0d7951; 
+    margin-bottom: 10px;
+}
+
+.password {
+    background-color:  #0d7951;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    border: 2px solid  #0d7951;
+    margin-bottom: 10px;
+}
