@@ -22,6 +22,8 @@ A full-stack web application that allows users to shorten long URLs and manage t
 - View a list of your shortened URLs
 - Edit or delete existing shortened URLs
 - Add notes to each URL
+- Tracking features
+- Copy and open URL
 
 ---
 
@@ -63,7 +65,7 @@ git clone https://github.com/kiran1926/URL-shortening-app-frontend && cd URL-sho
 
 ## Next Steps
 
-- Add link analytics and tracking features
+- Add analytics
 
 ## Frameworks & Libraries
 
