@@ -1,10 +1,14 @@
 # URL Shortening App – Frontend
 
-A full-stack web application that allows users to shorten long URLs and manage them in a personalized dashboard. Users can create, view, update, and delete shortened URLs, as well as leave comments on individual links.
+A full-stack web application that allows users to shorten long URLs and manage them in a personalized dashboard. Users can create, view, update, and delete shortened URLs, as well as leave notes on individual links.
 
-🔗 **Check out the Application [Here](https://)**
+🔗 **Check out the Application [Here](https://trimlinc.netlify.app/)**
+
+![Alt text](assets/images/LandingPage.png)
 
 ---
+![Alt text](assets/images/LandingPage2.png)
+
 
 ## Tech Stack
 
@@ -36,7 +40,7 @@ A full-stack web application that allows users to shorten long URLs and manage t
 | **GET**     | show             | 200      | /urls/:urlId                | Get a single URL      |
 | **PUT**     | update           | 200      | /urls/:urlId                | Update a URL          |
 | **DELETE**  | deleteUrl        | 200      | /urls/:urlId                | Delete a URL          |
-| **POST**    | createComment    | 200      | /urls/:urlId/comments       | Create a comment      |
+| **POST**    | createNote    | 200      | /urls/:urlId/notes       | Create a note      |
 
 ---
 
@@ -45,7 +49,7 @@ A full-stack web application that allows users to shorten long URLs and manage t
 | Resource            | Link |
 |---------------------|------|
 | **Trello Board**     | [View Trello Board](https://trello.com/b/m0Z0nQ76/project-3-crud) |
-| **Deployed App**     | [View Deployed App](https://) |
+| **Deployed App**     | [View Deployed App](https://trimlinc.netlify.app/) |
 | **Frontend Repo**    | [GitHub Frontend Repository](https://github.com/kiran1926/URL-shortening-app-frontend) |
 | **Backend Repo**     | [GitHub Backend Repository](https://github.com/kiran1926/URL-shortening-app-backend) |
 
