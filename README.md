@@ -1,4 +1,4 @@
-# URL Shortening App – Frontend
+# TrimLinc – Frontend
 
 A full-stack web application that allows users to shorten long URLs and manage them in a personalized dashboard. Users can create, view, update, and delete shortened URLs, as well as leave notes on individual links.
 
