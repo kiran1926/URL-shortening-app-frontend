@@ -2,6 +2,8 @@ import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import * as urlService from "../../services/urlService";
+import ConfirmModal from "../ConfirmModal/ConfirmModal";
+import UrlModal from "../UrlModal/UrlModal";
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
@@ -15,6 +17,16 @@ const Dashboard = () => {
     shortUrl: "",
     note: "",
   });
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    urlToDelete: null,
+  });
+  const [successModal, setSuccessModal] = useState({
+    isOpen: false,
+    url: null,
+  });
+
+  const baseUrl = import.meta.env.VITE_BASE_URL || "http://localhost:5173";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,6 +61,13 @@ const Dashboard = () => {
         shortUrl: "",
         note: "",
       });
+      
+      // Show success modal with the new URL
+      setSuccessModal({
+        isOpen: true,
+        url: newUrl,
+      });
+      
     } catch (err) {
       setError(err.message || "Something went wrong. Please try again.");
     } finally {
@@ -56,11 +75,34 @@ const Dashboard = () => {
     }
   };
 
-  const handleDelete = async (e, shortUrl) => {
+  const closeSuccessModal = () => {
+    setSuccessModal({
+      isOpen: false,
+      url: null,
+    });
+  };
+
+  const openDeleteModal = (e, shortUrl) => {
     e.stopPropagation();
+    setDeleteModal({
+      isOpen: true,
+      urlToDelete: shortUrl,
+    });
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModal({
+      isOpen: false,
+      urlToDelete: null,
+    });
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteModal.urlToDelete) return;
+
     try {
-      await urlService.deleteUrl(shortUrl);
-      setUrls(urls.filter((url) => url.shortUrl !== shortUrl));
+      await urlService.deleteUrl(deleteModal.urlToDelete);
+      setUrls(urls.filter((url) => url.shortUrl !== deleteModal.urlToDelete));
     } catch (err) {
       setError(err.message || "Failed to delete URL");
     }
@@ -71,10 +113,11 @@ const Dashboard = () => {
     navigate(`/url/${shortUrl}`);
   };
 
-  const copyToClipboard = (e, text) => {
+  const copyToClipboard = (e, shortUrl) => {
     e.stopPropagation();
+    const fullUrl = `${baseUrl}/${shortUrl}`;
     navigator.clipboard
-      .writeText(text)
+      .writeText(fullUrl)
       .then(() => {
         alert("URL copied to clipboard!");
       })
@@ -158,7 +201,7 @@ const Dashboard = () => {
               </div>
               <div className="flex">
                 <span className="inline-flex items-center px-3 text-gray-500 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg">
-                  yoursite.com/
+                  {baseUrl}/
                 </span>
                 <input
                   type="text"
@@ -307,10 +350,7 @@ const Dashboard = () => {
                             {url.shortUrl}
                             <button
                               onClick={(e) =>
-                                copyToClipboard(
-                                  e,
-                                  `yoursite.com/${url.shortUrl}`
-                                )
+                                copyToClipboard(e, url.shortUrl)
                               }
                               className="ml-2 text-gray-400 hover:text-gray-600"
                               title="Copy to clipboard"
@@ -327,7 +367,7 @@ const Dashboard = () => {
                         </td>
                         <td className="py-4 pl-3 pr-4 text-right text-sm font-medium">
                           <button
-                            onClick={(e) => handleDelete(e, url.shortUrl)}
+                            onClick={(e) => openDeleteModal(e, url.shortUrl)}
                             className="text-red-600 hover:text-red-800"
                             title="Delete URL"
                           >
@@ -343,6 +383,24 @@ const Dashboard = () => {
           )}
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <ConfirmModal
+        isOpen={deleteModal.isOpen}
+        onClose={closeDeleteModal}
+        onConfirm={confirmDelete}
+        title="Delete URL"
+        message="Are you sure you want to delete this shortened URL? This action cannot be undone."
+        confirmButtonText="Delete"
+        cancelButtonText="Cancel"
+      />
+      
+      {/* Success Modal */}
+      <UrlModal
+        isOpen={successModal.isOpen}
+        onClose={closeSuccessModal}
+        url={successModal.url}
+      />
     </main>
   );
 };
