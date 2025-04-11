@@ -1,13 +1,13 @@
-# TrimLinc – Frontend
+# URL Shortening App – Frontend
 
 A full-stack web application that allows users to shorten long URLs and manage them in a personalized dashboard. Users can create, view, update, and delete shortened URLs, as well as leave notes on individual links.
 
 🔗 **Check out the Application [Here](https://trimlinc.netlify.app/)**
 
-![Alt text](src/assets/LandingPage.png)
+![Alt text](assets/images/LandingPage.png)
 
 ---
-![Alt text](src/assets/LandingPage2.png)
+![Alt text](assets/images/LandingPage2.png)
 
 
 ## Tech Stack
@@ -77,6 +77,8 @@ git clone https://github.com/kiran1926/URL-shortening-app-frontend && cd URL-sho
 - **MongoDB** – Database
 - **Express** – Backend framework
 - **Tailwind CSS** – For styling
+- **QRCode.js** - For QR code generation
+- **ShortID.js** - generates short code
 
 ## Contributors
 
