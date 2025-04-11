@@ -8,6 +8,7 @@ import Landing from "./components/Landing/Landing";
 import Dashboard from "./components/Dashboard/Dashboard";
 import UrlDetails from "./components/UrlDetails/UrlDetails";
 import Footer from "./components/Footer/Footer";  
+import Redirect from "./components/Redirect/Redirect";
 
 import { UserContext } from "./contexts/UserContext";
 
@@ -26,6 +27,8 @@ const App = () => {
           path="/url/:shortUrl"
           element={user ? <UrlDetails /> : <Landing />}
         />
+        {/* Short URL redirect route */}
+        <Route path="/:shortUrl" element={<Redirect />} />
       </Routes>
       <Footer />
     </>
