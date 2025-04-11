@@ -4,10 +4,10 @@ A full-stack web application that allows users to shorten long URLs and manage t
 
 🔗 **Check out the Application [Here](https://trimlinc.netlify.app/)**
 
-![Alt text](assets/images/LandingPage.png)
+![Alt text](src/assets/LandingPage.png)
 
 ---
-![Alt text](assets/images/LandingPage2.png)
+![Alt text](src/assets/LandingPage2.png)
 
 
 ## Tech Stack
