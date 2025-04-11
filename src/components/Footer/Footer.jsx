@@ -3,7 +3,7 @@ const Footer = () => {
         <footer className="bg-gray-700 text-white py-6 mt-10">
             <div className="max-w-6x1 mx auto px-4 flex flex-col md:flex-row justify-between items-center text-sm">
                 <div className="mb-4 md:mb-0 text-center md:text-left">
-                    <p className="font-semibold">URL Shortening App</p>
+                    <p className="font-semibold">TrimLinc App</p>
                     <p>April 11, 2025</p>
                 </div>
 
@@ -42,7 +42,7 @@ const Footer = () => {
                 </a>
             </div>
             <div className="mt-4 md:mt-0 text-center md:text-right">
-                <p>&copy; {new Date().getFullYear()} URL Shortening App</p>
+                <p>&copy; {new Date().getFullYear()} TrimLinc</p>
             </div>
         </div>
         </footer>
