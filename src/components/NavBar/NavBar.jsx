@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Link } from "react-router";
 
 
+
 import { UserContext } from "../../contexts/UserContext";
 
 const NavBar = () => {
@@ -18,8 +19,8 @@ const NavBar = () => {
       <div className=" mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="text-indigo-600 font-bold text-xl">
-              URL Shortener
+            <Link to="/" className="flex items-center space-x-5">
+              <img src="/8cacfc67-328c-47fb-afc7-510ea642c5b3.png" alt="TrimLinc Logo" className="h-24 w-35" />
             </Link>
           </div>
           <div className="flex items-center">
