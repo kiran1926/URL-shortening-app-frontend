@@ -132,6 +132,31 @@ const deleteNote = async(shortUrl) => {
     }
 };
 
+// Update a URL's properties (originalUrl or shortUrl)
+const updateUrl = async(shortUrl, updateData) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${shortUrl}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(updateData),
+        });
+
+        const data = await res.json();
+
+        if (data.error) {
+            throw new Error(data.error);
+        }
+
+        return data;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
+
 export {
     createUrl,
     getUserUrls,
@@ -139,4 +164,5 @@ export {
     deleteUrl,
     updateNote,
     deleteNote,
+    updateUrl,
 };

@@ -42,10 +42,8 @@ const Dashboard = () => {
 
       const newUrl = await urlService.createUrl(urlData);
 
-
       setUrls([newUrl, ...urls]);
 
- 
       setFormData({
         originalUrl: "",
         shortUrl: "",
