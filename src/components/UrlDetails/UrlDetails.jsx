@@ -10,6 +10,18 @@ const UrlDetails = () => {
   const [error, setError] = useState("");
   const [noteInput, setNoteInput] = useState("");
   const [isEditingNote, setIsEditingNote] = useState(false);
+  const [isEditingUrl, setIsEditingUrl] = useState(false);
+  const [formData, setFormData] = useState({
+    originalUrl: "",
+    shortUrl: "",
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [copyNotification, setCopyNotification] = useState({
+    visible: false,
+    message: ""
+  });
+  
+  const baseUrl = import.meta.env.VITE_BASE_URL || "http://localhost:5173";
 
   useEffect(() => {
     const fetchUrlDetails = async () => {
@@ -18,6 +30,10 @@ const UrlDetails = () => {
         const data = await urlService.getUrlByShortUrl(shortUrl);
         setUrl(data);
         setNoteInput(data.note?.content || "");
+        setFormData({
+          originalUrl: data.originalUrl,
+          shortUrl: data.shortUrl,
+        });
       } catch (err) {
         setError(err.message || "Failed to load URL details");
         console.error(err);
@@ -49,19 +65,81 @@ const UrlDetails = () => {
       setError(err.message || "Failed to delete note");
     }
   };
+  
+  const handleUrlEditChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+  
+  const handleUrlEditSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      // Only include fields that have changed to avoid unnecessary updates
+      const updateData = {};
+      if (formData.originalUrl !== url.originalUrl) {
+        updateData.originalUrl = formData.originalUrl;
+      }
+      if (formData.shortUrl !== url.shortUrl) {
+        updateData.shortUrl = formData.shortUrl;
+      }
+      
+      // Only proceed if there are changes
+      if (Object.keys(updateData).length > 0) {
+        const updatedUrl = await urlService.updateUrl(url.shortUrl, updateData);
+        setUrl(updatedUrl);
+        
+        // If short URL changed, navigate to the new URL details page
+        if (updatedUrl.shortUrl !== shortUrl) {
+          navigate(`/url/${updatedUrl.shortUrl}`, { replace: true });
+        }
+      }
+      
+      setIsEditingUrl(false);
+    } catch (err) {
+      setError(err.message || "Failed to update URL");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const copyToClipboard = (text) => {
     navigator.clipboard
       .writeText(text)
       .then(() => {
-        alert("URL copied to clipboard!");
+        setCopyNotification({
+          visible: true,
+          message: "URL copied to clipboard!"
+        });
+        
+        // Hide notification after 2 seconds
+        setTimeout(() => {
+          setCopyNotification({
+            visible: false,
+            message: ""
+          });
+        }, 2000);
       })
       .catch(() => {
-        alert("Failed to copy URL. Please try again.");
+        setCopyNotification({
+          visible: true,
+          message: "Failed to copy URL. Please try again."
+        });
+        
+        // Hide notification after 2 seconds
+        setTimeout(() => {
+          setCopyNotification({
+            visible: false,
+            message: ""
+          });
+        }, 2000);
       });
   };
 
-  const fullShortUrl = `yoursite.com/${shortUrl}`;
+  const fullShortUrl = `${baseUrl}/${url?.shortUrl || shortUrl}`;
 
   return (
     <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -89,51 +167,154 @@ const UrlDetails = () => {
         ) : url ? (
           <div className="bg-white shadow overflow-hidden rounded-lg">
             {/* Header with URL info */}
-            <div className="px-4 py-5 sm:px-6 bg-indigo-50">
-              <h2 className="text-2xl font-bold text-gray-900">URL Details</h2>
-              <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                Created on {new Date(url.createdAt).toLocaleDateString()}
-              </p>
+            <div className="px-4 py-5 sm:px-6 bg-indigo-50 flex justify-between items-center">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">URL Details</h2>
+                <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                  Created on {new Date(url.createdAt).toLocaleDateString()}
+                </p>
+              </div>
+              <button
+                onClick={() => setIsEditingUrl(!isEditingUrl)}
+                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                {isEditingUrl ? (
+                  <>
+                    <i className="fas fa-times mr-2"></i>
+                    Cancel Edit
+                  </>
+                ) : (
+                  <>
+                    <i className="fas fa-edit mr-2"></i>
+                    Edit URL
+                  </>
+                )}
+              </button>
             </div>
 
             {/* Main content */}
             <div className="border-t border-gray-200 px-4 py-5 sm:p-6">
               <div className="grid grid-cols-1 gap-6">
-                {/* Short URL */}
-                <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
-                    Short URL
-                  </h3>
-                  <div className="flex items-center bg-gray-50 p-3 rounded-lg">
-                    <span className="text-indigo-600 font-medium mr-2">
-                      {fullShortUrl}
-                    </span>
-                    <button
-                      onClick={() => copyToClipboard(fullShortUrl)}
-                      className="text-gray-400 hover:text-gray-600"
-                      title="Copy to clipboard"
-                    >
-                      <i className="fas fa-copy"></i>
-                    </button>
+                {/* Short URL and Original URL editing form */}
+                {isEditingUrl ? (
+                  <div className="bg-gray-50 p-4 rounded-lg mb-4">
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">Edit URL</h3>
+                    <form onSubmit={handleUrlEditSubmit}>
+                      <div className="space-y-4">
+                        <div>
+                          <label htmlFor="originalUrl" className="block text-sm font-medium text-gray-700 mb-1">
+                            Original URL
+                          </label>
+                          <input
+                            type="url"
+                            id="originalUrl"
+                            name="originalUrl"
+                            value={formData.originalUrl}
+                            onChange={handleUrlEditChange}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                            required
+                          />
+                        </div>
+                        
+                        <div>
+                          <label htmlFor="shortUrl" className="block text-sm font-medium text-gray-700 mb-1">
+                            Custom URL Path
+                          </label>
+                          <div className="flex rounded-md shadow-sm">
+                            <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
+                              {baseUrl}/
+                            </span>
+                            <input
+                              type="text"
+                              id="shortUrl"
+                              name="shortUrl"
+                              value={formData.shortUrl}
+                              onChange={handleUrlEditChange}
+                              className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                              required
+                            />
+                          </div>
+                        </div>
+                        
+                        <div className="flex justify-end space-x-3 pt-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setIsEditingUrl(false);
+                              setFormData({
+                                originalUrl: url.originalUrl,
+                                shortUrl: url.shortUrl,
+                              });
+                            }}
+                            className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="submit"
+                            disabled={submitting}
+                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                          >
+                            {submitting ? 'Saving...' : 'Save Changes'}
+                          </button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
-                </div>
+                ) : (
+                  <>
+                    {/* Short URL */}
+                    <div>
+                      <h3 className="text-lg font-medium text-gray-900 mb-2">
+                        Short URL
+                      </h3>
+                      <div className="flex items-center bg-gray-50 p-3 rounded-lg">
+                        <a 
+                          href={fullShortUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-indigo-600 font-medium mr-2 hover:underline"
+                        >
+                          {fullShortUrl}
+                        </a>
+                        <button
+                          onClick={() => copyToClipboard(fullShortUrl)}
+                          className="text-gray-400 hover:text-gray-600 ml-2"
+                          title="Copy to clipboard"
+                        >
+                          <i className="fas fa-copy"></i>
+                        </button>
+                      </div>
+                      
+                      {/* Copy notification */}
+                      {copyNotification.visible && (
+                        <div className="mt-2 transition-opacity duration-300 opacity-100">
+                          <div className="bg-indigo-50 text-indigo-700 p-2 rounded-md text-sm flex items-center">
+                            <i className="fas fa-check-circle mr-2"></i>
+                            {copyNotification.message}
+                          </div>
+                        </div>
+                      )}
+                    </div>
 
-                {/* Original URL */}
-                <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
-                    Original URL
-                  </h3>
-                  <div className="bg-gray-50 p-3 rounded-lg break-all">
-                    <a
-                      href={url.originalUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline"
-                    >
-                      {url.originalUrl}
-                    </a>
-                  </div>
-                </div>
+                    {/* Original URL */}
+                    <div>
+                      <h3 className="text-lg font-medium text-gray-900 mb-2">
+                        Original URL
+                      </h3>
+                      <div className="bg-gray-50 p-3 rounded-lg break-all">
+                        <a
+                          href={url.originalUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline"
+                        >
+                          {url.originalUrl}
+                        </a>
+                      </div>
+                    </div>
+                  </>
+                )}
 
                 {/* QR Code */}
                 {url.qrCode && (
